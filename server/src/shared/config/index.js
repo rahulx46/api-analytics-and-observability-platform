@@ -9,7 +9,7 @@ const config = {
 
   // mongoDB
   mongo: {
-    uri: process.env.URI || "mongodb://localhost:27017/api_monitoring",
+    uri: process.env.MONGO_URI || "mongodb://localhost:27017/api_monitoring",
     dbName: process.env.MONGO_DB_NAME || "api_monitoring",
   },
 
@@ -19,7 +19,7 @@ const config = {
     port: parseInt(process.env.PG_PORT || "5432", 10),
     database: process.env.PG_DATABASE || "api_monitoring",
     user: process.env.PG_USER || "postgres",
-    password: process.env.PG_PASSWORD || "postgres",
+    password: process.env.PG_PASSWORD || "",
   },
 
   // RabbitMQ
