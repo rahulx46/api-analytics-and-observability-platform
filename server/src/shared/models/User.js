@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import SecurityUtils from "../utils/SecurityUtils";
+import SecurityUtils from "../utils/SecurityUtils.js";
 
 const userSchema = new mongoose.Schema(
   {
