@@ -4,7 +4,7 @@
   "description": "Real-time API hit observability tool",
   "main": "src/server.js",
   "scripts": {
-    "start": "node ser/server.js",
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "processor": "node src/modules/processor/consumer.js",
     "init": "node init-system.js",
