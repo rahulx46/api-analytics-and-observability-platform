@@ -1,5 +1,5 @@
 import winston from "winston";
-import config from "./index";
+import config from "./index.js";
 
 /**
  * Winston logger configuration
@@ -11,7 +11,7 @@ const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp({ format: "YYYY-MM-DD HH:MM:SS" }),
     winston.format.errors({ stack: true }),
-    winston.splat(),
+    winston.format.splat(),
     winston.format.json(),
   ),
 

@@ -1,6 +1,6 @@
 import pg from "pg";
-import config from "./index";
-import logger from "./logger";
+import config from "./index.js";
+import logger from "./logger.js";
 
 const { Pool } = pg;
 
@@ -30,10 +30,9 @@ class PostgresConnection {
           stack: err.stack,
         });
       });
-
       logger.info("PG Pool Created.");
-      return this.pool;
     }
+    return this.pool;
   }
 
   async testConnection() {
