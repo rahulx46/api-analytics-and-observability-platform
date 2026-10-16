@@ -2,6 +2,12 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import SecurityUtils from "../utils/SecurityUtils.js";
 
+/**
+ * User Schema - Represents a user in the system with authentication & RBAC
+ * Each user can be associated with a client (except super_admin) & has specific permissions
+ * Passwords are hashed before saving to the DB for security
+ */
+
 const userSchema = new mongoose.Schema(
   {
     username: {
