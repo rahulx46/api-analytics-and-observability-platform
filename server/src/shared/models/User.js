@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema(
       unique: true,
       trim: true,
       minlength: 3,
-      validate: { // allow only letters, numbers, underscore, dot, and hyphen
+      validate: {
+        // allow only letters, numbers, underscore, dot, and hyphen
         validator: function (userName) {
           return /^[a-zA-Z0-9_.-]+$/.test(userName);
         },
@@ -24,7 +25,8 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       trim: true,
-      validate: { // basic email format validation
+      validate: {
+        // basic email format validation
         validator: function (email) {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         },
@@ -103,18 +105,14 @@ const userSchema = new mongoose.Schema(
 );
 
 // hash password before saving
-userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    return next();
+
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) {
+    return;
   }
 
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    nect();
-  } catch (error) {
-    next(error);
-  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
 userSchema.index({ clientId: 1, isActive: 1 });
