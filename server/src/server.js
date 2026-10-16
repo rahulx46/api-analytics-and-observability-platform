@@ -32,6 +32,10 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+/**
+ * Request logging middleware
+ * Logs the HTTP method, path, IP address, user agent for each incoming request
+ */
 app.use((req, res, next) => {
   logger.info(` ${req.method} ${req.path}`, {
     ip: req.ip,
@@ -56,6 +60,10 @@ app.get("/health", (req, res) => {
   );
 });
 
+/**
+ * Root endpoint
+ * Provides basic information about API service & available endpoints
+ */
 app.get("/", (req, res) => {
   res.status(200).json(
     ResponseFormatter.success(
@@ -86,6 +94,9 @@ app.use((req, res) => {
 
 app.use(errorHandler);
 
+/**
+ * Initialize DB Connections and start the server
+ */
 async function initializeConnection() {
   try {
     logger.info("Initializing database connections...");
@@ -106,6 +117,12 @@ async function initializeConnection() {
   }
 }
 
+/**
+ * Starts the Express server after establishing DB Connections
+ * Also sets up graceful shutdown handlers for SIGINT and SIGTERM signals
+ * On shutdown, it closes the HTTP server & all DB Connections before exiting the process.
+ * If any error occurs during startup or shutdown, it logs the error & exits with a non-zero status-code.
+ */
 async function startServer() {
   try {
     await initializeConnection();

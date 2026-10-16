@@ -1,4 +1,10 @@
+/**
+ * SecurityUtils - Utility class for security-related functions such as password validation
+ * This class can be extended in future to include additional security features like token generation, encryption, etc.
+ */
+
 class SecurityUtils {
+  // Password requirements can be configured via env variables
   static PASSWORD_REQUIREMENTS = {
     minLength: parseInt(process.env.PASSWORD_MIN_LENGTH || "8"),
     requireUppercase:
@@ -10,7 +16,7 @@ class SecurityUtils {
   };
 
   /**
-   *
+   * Validates a password against the defined security requirements
    * @param {string} password
    * @returns {Object} - validaton res with success flag and errors
    */

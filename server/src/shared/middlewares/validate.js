@@ -1,5 +1,18 @@
 import ResponseFormatter from "../../shared/utils/responseFormatter.js";
 
+/**
+ * Middleware to validate request bodies against a schema
+ * @param {Object} - schema: the validation schema 
+ * @returns {Function} - Returns a middleware function
+ * The validation schema is an object where each key is a field name & the value is an object that defines validation rules for that field.
+ * For example: 
+ * {
+ *    username: { required: true },
+ *    email: { required: true },
+ *    password: { required: true, minLength: 6 }
+ * }
+ */
+
 const validate = (schema) => (req, res, next) => {
   if (!schema) {
     return next();
@@ -7,6 +20,12 @@ const validate = (schema) => (req, res, next) => {
 
   const errors = [];
   const body = req.body || {};
+
+  /**
+   * {
+   *    username: "Bob"
+   * }
+   */
 
   Object.entries(schema).forEach(([field, rules]) => {
     const value = body[field]; // body["username"]
