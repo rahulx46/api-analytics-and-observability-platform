@@ -8,6 +8,7 @@ import config from "./index.js";
 
 const logger = winston.createLogger({
   level: config.node_env === "production" ? "info" : "debug",
+
   format: winston.format.combine(
     winston.format.timestamp({ format: "YYYY-MM-DD HH:MM:SS" }),
     winston.format.errors({ stack: true }),
@@ -18,6 +19,7 @@ const logger = winston.createLogger({
   defaultMeta: { service: "api-monitoring" },
 
   transports: [
+    new winston.transports.Console(),
     new winston.transports.File({ filename: "logs/error.log", level: "error" }),
     new winston.transports.File({ filename: "logs/combined.log" }),
   ],
