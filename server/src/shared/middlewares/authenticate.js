@@ -6,7 +6,7 @@ import logger from "../../shared/config/logger.js";
 /**
  * Middleware to authenticate requests using JWT.
  * @param {Request} - req: the req object
- * @param {Respose} - res: the response object  
+ * @param {Respose} - res: the response object
  * @param {Function} - next: the next middleware function
  * @returns {Promise<void>}
  */
@@ -36,6 +36,12 @@ const authenticate = async (req, res, next) => {
       role,
       clientId,
     };
+
+    // logger.info("Authenticated user payload", {
+    //   userId: req.user.userId ?? null,
+    //   role: req.user.role ?? null,
+    //   clientId: req.user.clientId ?? null,
+    // });
 
     next();
   } catch (error) {
